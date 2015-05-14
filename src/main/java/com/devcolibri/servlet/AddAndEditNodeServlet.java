@@ -35,7 +35,7 @@ public class AddAndEditNodeServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+        resp.setContentType("application/json");
         req.setCharacterEncoding("UTF-8");
 
         String name = req.getParameter("node_name");
@@ -50,6 +50,6 @@ public class AddAndEditNodeServlet extends HttpServlet {
         } else{
             nodeBean.add(new Node(name, type));
         }
-        resp.sendRedirect("list-node");
+//        resp.sendRedirect("list-node");
     }
 }
