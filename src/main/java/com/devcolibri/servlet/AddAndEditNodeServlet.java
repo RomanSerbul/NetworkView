@@ -20,7 +20,7 @@ public class AddAndEditNodeServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+//        resp.setContentType("text/html");
         req.setCharacterEncoding("UTF-8");
 
         if(req.getParameter("edit") != null){
@@ -30,12 +30,14 @@ public class AddAndEditNodeServlet extends HttpServlet {
             req.setAttribute("node", node);
         }
 
-        req.getRequestDispatcher("/addNode.jsp").forward(req, resp);
+        req.getRequestDispatcher("/listNode.jsp").forward(req, resp);
+
+        //req.getRequestDispatcher("/addNode.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("application/json");
+        resp.setContentType("text/html");
         req.setCharacterEncoding("UTF-8");
 
         String name = req.getParameter("node_name");

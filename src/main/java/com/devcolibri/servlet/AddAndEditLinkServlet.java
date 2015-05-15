@@ -28,7 +28,7 @@ public class AddAndEditLinkServlet extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        resp.setContentType("text/html");
+//        resp.setContentType("text/html");
         req.setCharacterEncoding("UTF-8");
 
         if(req.getParameter("edit") != null){
@@ -40,8 +40,8 @@ public class AddAndEditLinkServlet extends HttpServlet{
 
             req.setAttribute("nodes", allNode);
         }
-
-        req.getRequestDispatcher("/addLink.jsp").forward(req, resp);
+        req.getRequestDispatcher("/listLink.jsp").forward(req, resp);
+//        req.getRequestDispatcher("/addLink.jsp").forward(req, resp);
     }
 
     @Override
@@ -67,6 +67,6 @@ public class AddAndEditLinkServlet extends HttpServlet{
         } else{
             linkBean.add(new Link(name, type,color, from, to));
         }
-        resp.sendRedirect("list-link");
+//        resp.sendRedirect("list-link");
     }
 }

@@ -1,3 +1,6 @@
+/**
+ * Created by rose0414 on 15.05.2015.
+ */
 /*!
  * Ext JS Library
  * Copyright(c) 2006-2014 Sencha Inc.
@@ -5,7 +8,7 @@
  * http://www.sencha.com/license
  */
 
-Ext.define('Desktop.GridWindow', {
+Ext.define('Desktop.GridWindow2', {
     extend: 'Ext.ux.desktop.Module',
 
     requires: [
@@ -13,15 +16,15 @@ Ext.define('Desktop.GridWindow', {
         'Ext.util.Format',
         'Ext.grid.Panel',
         'Ext.grid.RowNumberer',
-        'Desktop.view.AddNodeFormView'
+        'Desktop.view.AddLinkFormView'
     ],
 
-    id:'grid-win',
+    id:'grid-win2',
     autoShow:true,
 
     init : function(){
         this.launcher = {
-            text: 'Nodes',
+            text: 'Links',
             iconCls:'icon-grid'
         };
     },
@@ -29,18 +32,18 @@ Ext.define('Desktop.GridWindow', {
     createWindow : function(){
         var desktop = this.app.getDesktop();
         var data = [];
-        var win = desktop.getWindow('grid-win');
+        var win = desktop.getWindow('grid-win2');
         Ext.Ajax.request({
-            url: '/EJBGlassfishJPA-1.0/list-node',
+            url: '/EJBGlassfishJPA-1.0/list-link',
             success: function(response, options){
                 var objAjax = Ext.decode(response.responseText);
                 for(var i =0;i<objAjax.length;i++){
-                    data.push([objAjax[i].name,objAjax[i].type,objAjax[i].id]);
+                    data.push([objAjax[i].name,objAjax[i].type,objAjax[i].color,objAjax[i].from,objAjax[i].to,objAjax[i].id]);
                 }
                 if(!win){
                     win = desktop.createWindow({
-                        id: 'grid-win',
-                        title:'List Devices',
+                        id: 'grid-win2',
+                        title:'List Links',
                         autoShow:true,
                         width:740,
                         height:480,
@@ -56,6 +59,9 @@ Ext.define('Desktop.GridWindow', {
                                     fields: [
                                         { name: 'name' },
                                         { name: 'type'},
+                                        { name: 'color'},
+                                        { name: 'from'},
+                                        { name: 'to'},
                                         { name: 'id'}
                                     ],
                                     data: data
@@ -75,7 +81,25 @@ Ext.define('Desktop.GridWindow', {
                                         dataIndex: 'type'
                                     },
                                     {
-                                        text: "Id",
+                                        text: "Color",
+                                        width: 70,
+                                        sortable: true,
+                                        dataIndex: 'color'
+                                    },
+                                    {
+                                        text: "From ID",
+                                        width: 70,
+                                        sortable: true,
+                                        dataIndex: 'from'
+                                    },
+                                    {
+                                        text: "To ID",
+                                        width: 70,
+                                        sortable: true,
+                                        dataIndex: 'to'
+                                    },
+                                    {
+                                        text: "ID",
                                         width: 70,
                                         sortable: true,
                                         dataIndex: 'id'
@@ -88,7 +112,7 @@ Ext.define('Desktop.GridWindow', {
                             tooltip:'Add new',
                             iconCls:'add',
                             handler: function(){
-                                Ext.widget('addNodeFormView');
+                                Ext.widget('addLinkFormView');
 //                                window.open("/EJBGlassfishJPA-1.0/add-node");
                             }
                         }, '-', {
@@ -104,18 +128,18 @@ Ext.define('Desktop.GridWindow', {
                                 debugger;
                                 if (selection) {
                                     Ext.Ajax.request({
-                                        url: '/EJBGlassfishJPA-1.0/delete-node?id='+selection.data.id,
+                                        url: '/EJBGlassfishJPA-1.0/delete-link?id='+selection.data.id,
                                         success: function(response, options){
                                             console.log('ok');
                                             Ext.Ajax.request({
-                                                url: '/EJBGlassfishJPA-1.0/list-node',
+                                                url: '/EJBGlassfishJPA-1.0/list-link',
                                                 success: function(response2, options){
                                                     var data2 = [];
                                                     var objAjax = Ext.decode(response2.responseText);
                                                     for(var i =0;i<objAjax.length;i++){
-                                                        data2.push([objAjax[i].name,objAjax[i].type,objAjax[i].id]);
+                                                        data2.push([objAjax[i].name,objAjax[i].type,objAjax[i].color,objAjax[i].from,objAjax[i].to,objAjax[i].id]);
                                                     }
-                                                    Ext.get('grid-win').component.items.items[0].getStore().loadData(data2);
+                                                    Ext.get('grid-win2').component.items.items[0].getStore().loadData(data2);
                                                     debugger;
                                                 },
                                                 failure: function(response2, options){
@@ -127,7 +151,6 @@ Ext.define('Desktop.GridWindow', {
                                             alert("Ошибка: " + response.statusText);
                                         }
                                     });
-                                    //window.open("/EJBGlassfishJPA-1.0/delete-node?id="+selection.data.id);
                                 }
                             }
                         }]
@@ -143,22 +166,7 @@ Ext.define('Desktop.GridWindow', {
 
     statics: {
         getDummyData: function () {
-//            var objAjax;
-//            Ext.Ajax.request({
-//                url: '/EJBGlassfishJPA-1.0/list-node',
-//                success: function(response, options){
-//                    var objAjax = Ext.decode(response.responseText);
-//                    var data = [];
-//                    for(var i =0;i<objAjax.length;i++){
-//                        data.push([objAjax[i].name,objAjax[i].type,objAjax[i].id]);
-//                    }
-//                    return data;
-//
-//                },
-//                failure: function(response, options){
-//                    alert("Ошибка: " + response.statusText);
-//                }
-//            });
+
         }
     }
 });

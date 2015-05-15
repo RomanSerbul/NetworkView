@@ -1,9 +1,9 @@
 /**
- * Created by rose0414 on 14.05.2015.
+ * Created by rose0414 on 15.05.2015.
  */
-Ext.define('Desktop.view.AddNodeFormView', {
+Ext.define('Desktop.view.AddLinkFormView', {
     extend: 'Ext.window.Window',
-    alias: 'widget.addNodeFormView',
+    alias: 'widget.addLinkFormView',
     autoShow: true,
     layout: 'fit',
     modal: true,
@@ -12,19 +12,40 @@ Ext.define('Desktop.view.AddNodeFormView', {
             bodyPadding: 10,
             xtype: 'form',
             standardSubmit: false,
-            url: '/EJBGlassfishJPA-1.0/add-node',
+            url: '/EJBGlassfishJPA-1.0/add-link',
             items: [
                 {
                     xtype: 'textfield',
-                    name: 'node_name',
+                    name: 'link_name',
                     fieldLabel: 'Название',
                     allowBlank: false,
                     blankText: 'Это поле должно быть заполнено'
                 },
                 {
                     xtype: 'textfield',
-                    name: 'node_type',
+                    name: 'link_type',
                     fieldLabel: 'Тип',
+                    allowBlank: false,
+                    blankText: 'Это поле должно быть заполнено'
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'link_color',
+                    fieldLabel: 'Цвет',
+                    allowBlank: false,
+                    blankText: 'Это поле должно быть заполнено'
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'from_id',
+                    fieldLabel: 'От у-ства',
+                    allowBlank: false,
+                    blankText: 'Это поле должно быть заполнено'
+                },
+                {
+                    xtype: 'textfield',
+                    name: 'to_id',
+                    fieldLabel: 'В у-ство',
                     allowBlank: false,
                     blankText: 'Это поле должно быть заполнено'
                 },
@@ -42,7 +63,7 @@ Ext.define('Desktop.view.AddNodeFormView', {
     buttons: [
         {
             text: 'Сохранить',
-            action: 'add-node',
+            action: 'add-link',
             handler: function () {
                 var wind = this.up('window');
                 var form = this.up().up().down('form').getForm();
@@ -55,13 +76,13 @@ Ext.define('Desktop.view.AddNodeFormView', {
                             wind.close();
                             var data = [];
                             Ext.Ajax.request({
-                                url: '/EJBGlassfishJPA-1.0/list-node',
+                                url: '/EJBGlassfishJPA-1.0/list-link',
                                 success: function(response, options){
                                     var objAjax = Ext.decode(response.responseText);
                                     for(var i =0;i<objAjax.length;i++){
-                                        data.push([objAjax[i].name,objAjax[i].type,objAjax[i].id]);
+                                        data.push([objAjax[i].name,objAjax[i].type,objAjax[i].color,objAjax[i].from,objAjax[i].to,objAjax[i].id]);
                                     }
-                                    Ext.get('grid-win').component.items.items[0].getStore().loadData(data);
+                                    Ext.get('grid-win2').component.items.items[0].getStore().loadData(data);
                                     debugger;
                                 },
                                 failure: function(response, options){

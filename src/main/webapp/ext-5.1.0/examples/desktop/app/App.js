@@ -16,6 +16,7 @@ Ext.define('Desktop.App', {
         'Desktop.SystemStatus',
         'Desktop.VideoWindow',
         'Desktop.GridWindow',
+        'Desktop.GridWindow2',
         'Desktop.TabWindow',
         'Desktop.AccordionWindow',
         'Desktop.Notepad',
@@ -40,6 +41,7 @@ Ext.define('Desktop.App', {
             //new Desktop.Blockalanche(),
             new Desktop.SystemStatus(),
             new Desktop.GridWindow(),
+            new Desktop.GridWindow2(),
             new Desktop.TabWindow(),
             new Desktop.AccordionWindow(),
             new Desktop.Notepad(),
@@ -62,14 +64,16 @@ Ext.define('Desktop.App', {
                 model: 'Ext.ux.desktop.ShortcutModel',
                 data: [
                     { name: 'List Devices', iconCls: 'grid-shortcut', module: 'grid-win' },
-                    { name: 'Accordion Window', iconCls: 'accordion-shortcut', module: 'acc-win' },
+                    { name: 'List Links', iconCls: 'grid-shortcut', module: 'grid-win2' },
+                    { name: 'Network Topology', iconCls: 'accordion-shortcut', module: 'graph' },
+//                    { name: 'Accordion Window', iconCls: 'accordion-shortcut', module: 'acc-win' },
                     { name: 'Notepad', iconCls: 'notepad-shortcut', module: 'notepad' },
                     { name: 'System Status', iconCls: 'cpu-shortcut', module: 'systemstatus'}
                 ]
             }),
 
-            wallpaper: 'resources/images/wallpapers/Blue-Sencha.jpg',
-            wallpaperStretch: false
+            wallpaper: 'resources/images/wallpapers/desktop.jpg',
+            wallpaperStretch: true
         });
     },
 
@@ -107,8 +111,9 @@ Ext.define('Desktop.App', {
 
         return Ext.apply(ret, {
             quickStart: [
-                { name: 'Accordion Window', iconCls: 'accordion', module: 'acc-win' },
-                { name: 'List Devices', iconCls: 'icon-grid', module: 'grid-win' }
+//                { name: 'Accordion Window', iconCls: 'accordion', module: 'acc-win' },
+                { name: 'List Devices', iconCls: 'icon-grid', module: 'grid-win' },
+                { name: 'List Links', iconCls: 'icon-grid', module: 'grid-win2' }
             ],
             trayItems: [
                 { xtype: 'trayclock', flex: 1 }

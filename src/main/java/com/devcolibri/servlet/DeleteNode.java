@@ -22,6 +22,6 @@ public class DeleteNode extends HttpServlet {
             long id = Long.valueOf(req.getParameter("id"));
             nodeBean.delete(id);
         }
-        resp.sendRedirect("list-node");
+//        resp.sendRedirect("list-node");
     }
 }

@@ -27,9 +27,11 @@
         var DIR = 'http://visjs.org/examples/network/img/refresh-cl/';
         var LENGTH_MAIN = 150;
         var LENGTH_SUB = 50;
+        debugger;
 
         // Called when the Visualization API is loaded.
-        function draw() {
+//        function draw() {
+            debugger;
             // Create a data table with nodes.
             nodes = [];
 
@@ -74,11 +76,11 @@
                 stabilize: false   // stabilize positions before displaying
             };
             network = new vis.Network(container, data, options);
-        }
+//        }
     </script>
 </head>
 
-<body onload="draw()">
+<body>
 
 <div id="mynetwork"></div>
 
